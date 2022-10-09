@@ -1,0 +1,59 @@
+﻿@{
+    
+}
+
+<div class="bg-main">
+
+    <div class="row">
+        <!-- Image Carousel -->
+        <div class="col col-6">
+            <div id="splash-carousel" class="carousel slide" data-ride="carousel" data-interval=4000 data-hover="false">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="assets/team_with_computer.jpg" alt="Team of people working at a laptop" />
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="assets/woman_with_code.jpg" alt="Woman with code projected over her face" />
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="assets/woman_with_robot.jpg" alt="Woman standing next to a small robot" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login -->
+        <div class="col col-6">
+            <h1 class="header-font">Welcome</h1>
+            <div id="login-container">
+
+                @if(!String.IsNullOrEmpty((String)ViewData["errorMessage"])){
+                    <div class="row">
+                        <p id="login-error-msg">@ViewData["errorMessage"]</p>
+                    </div>
+                }
+                else if((bool)ViewData["needsRegistration"] == true){
+                    <div class="row">
+                            <span>We couldn't find a user matching your information. Would you like to <a style="display: inline;" asp-controller="Register" asp-action="Index">sign up</a> instead?</span>
+                    </div>
+                }
+
+                <form id="login-form" method="post">
+                    <div class="row">
+                        <label for="username-input">Username: </label>
+                        <input id="username-input" name="username-input" type="text" />
+                    </div>
+                    <div class="row">
+                        <label for="password-input">Password: </label>
+                        <input id="password-input" name="password-input" type="password" />
+                    </div>
+                    <div class="row" style="margin-top: 15px;">
+                        <input id="login-button" type="submit" value="Log In" />
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</div>
