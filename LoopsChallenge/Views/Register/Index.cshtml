@@ -1,7 +1,180 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using LoopsChallenge.Models;
 
-<h1>register</h1>
+@model RegisterControllerModel
+
+<div class="bg-main">
+
+    <div class="register-container">
+        <h1>Let's learn more about you</h1>
+
+        <form method="post">
+            <div id="register-page1" class="register-form">
+                <div class="register-form-inner">
+                    <div class="vertical-entry">
+                        <label for="Email">Enter your email address: </label>
+                        <input type="text" name="Email" />
+                    </div>
+                    <div class="vertical-entry">
+                        <label for="Password">Choose a password: </label>
+                        <input type="password" name="Password" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="register-page2" class="register-form">
+                <div class="register-form-inner">
+                    <div class="profile-upload-container">
+                        <div class="col">
+                        <div class="vertical-entry" style="width: 100%;">
+                            <label for="ProfileImageUpload">Upload a profile picture</label>
+                            <p class="p-note">* Max size: 150px x 150px, 10 MB or less</p>
+                            <input id="register-profile-image" type="file" name="ProfileImageUpload" accept=".jpg,.png" />
+                            <input id="profile-src-holder" type="text" style="display: none;" name="ProfileImage" />
+                        </div>
+                        </div>
+                    
+                        <div class="col">
+                            <img id="profile-image-preview" class="img-fluid"/>
+                        </div>          
+                    </div>
+                </div>
+            </div>
+
+            <div id="register-page3" class="register-form">
+                <div class="register-form-inner">
+                    <p class="p-note">All fields except your name are optional- share what you're comfortable with!</p>
+                    <div class="horizontal-entry">
+                        <label for="DisplayName" style="margin-right: 35px;">Display Name:</label>
+                        <input name="DisplayName" type="text" />
+                    </div>
+                    <div class="horizontal-entry">
+                        <label for="Location">Location: </label>
+                        <input type="text" name="Location"/>
+                    </div>
+                    <div class="horizontal-entry">
+                        <label for="Gender" style="margin-right: 35px;">Gender Identity:</label>
+                        <select name="Gender">
+                            <option>Woman</option>
+                            <option>Man</option>
+                            <option>Nonbinary</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="horizontal-entry">
+                        <label for="Race" style="margin-right: 35px;">Race (Select all):</label>
+                        <select name="Race" multiple>
+                            <option>Asian</option>
+                            <option>Indigenous</option>
+                            <option>White</option>
+                            <option>Black</option>
+                            <option>Native Hawaiian or Pacific Islander</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="horizontal-entry">
+                        <label for="HispanicLatino">Hispanic/Latino</label>
+                        <input type="checkbox" name="HispanicLatino" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="register-page4" class="register-form">
+                <div class="register-form-inner">
+                    <div class="vertical-entry">
+                        <label for="Bio">Add a bio: </label>
+                        <textarea name="Bio" rows="8"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <input id="registration-submit" type="submit" value="Done"/>
+
+        </form>
+
+        <div class="arrows-container row">
+            <div class="col">
+                <span class="material-symbols-outlined" id="register-back-arrow">
+                    arrow_back_ios
+                </span>
+                <span class="material-symbols-outlined" id="register-forward-arrow">
+                    arrow_forward_ios
+                </span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var currPage = 1; 
+
+    function hideAllFormsExceptCurrent(){
+
+        var formToShow = "register-page" + currPage; 
+        $(".register-form").hide();
+        $("#" + formToShow).show();
+        
+        if(currPage == 1){
+            $("#register-back-arrow").hide();
+        }
+        else{
+            $("#register-back-arrow").show();
+        }
+
+        if(currPage == 4){
+            $(".arrows-container").hide();
+            $("#registration-submit").show();
+            $("registration-submit").removeAttr("disabled");
+        }
+        else{
+            $("#registration-submit").hide();
+            $("registration-submit").attr("disabled");
+        }
+    }
+
+    $(document).ready( () => {
+        hideAllFormsExceptCurrent();
+    });
+
+    // Advance to next page when forward arrow is clicked
+    $("#register-forward-arrow").click( () => {
+        currPage++;
+        hideAllFormsExceptCurrent();
+    });
+
+    // Go back to previous page when back arrow is clicked
+    $("#register-back-arrow").click(() => {
+        currPage--;
+        hideAllFormsExceptCurrent();
+    });
+
+    // Profile image upload
+    $("#register-profile-image").change( async function(e){
+
+        // Check file size
+        if(this.files && this.files[0]){
+            var image = this.files[0];
+
+            // Reject files larger than 10 MB
+            if ((image.size / 1000000) > 10){
+                alert("Profile images must be 10 MB or less.");
+                $(this).val(null);
+                return;
+            }
+
+            // Preview uploaded image
+            var reader = new FileReader();
+
+            reader.addEventListener("load", () => {
+                $("#profile-image-preview").attr('src', reader.result);
+                $("#profile-src-holder").attr('value', reader.result);
+            })
+
+             await reader.readAsDataURL(image);
+        }
+      
+        console.log(this.files);
+    });
+
+</script>

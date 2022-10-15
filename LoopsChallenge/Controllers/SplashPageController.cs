@@ -45,7 +45,5 @@ public class SplashPageController : Controller
             System.Diagnostics.Debug.WriteLine("setting needsregistration to true");
             return View("Index");
         }
-
-        return View("Index");
     }
 }
