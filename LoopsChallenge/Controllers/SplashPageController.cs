@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using LoopsChallenge.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using LoopsChallenge.Services;
 
 namespace LoopsChallenge.Controllers;
 
@@ -18,6 +16,12 @@ public class SplashPageController : Controller
     [HttpGet]
     public IActionResult Index()
     {
+        // Redirect to homepage if already logged in 
+        if (_identityService.IsUserSignedIn(HttpContext.User))
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         ViewData["needsRegistration"] = false;
         return View("Index");
     }
@@ -42,7 +46,6 @@ public class SplashPageController : Controller
         else
         {
             ViewData["needsRegistration"] = true;
-            System.Diagnostics.Debug.WriteLine("setting needsregistration to true");
             return View("Index");
         }
     }

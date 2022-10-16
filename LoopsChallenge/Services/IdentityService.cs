@@ -26,7 +26,30 @@ public class IdentityService : IIdentityService
         return signInResult.Succeeded;
     }
 
-    public async Task<bool> CreateUserAsync(string username, string password) { return false;  }
+    /// <summary>
+    /// Creates an IdentityUser instance in the database for the passed email and password. If the creation succeeded,
+    /// it will return a reference to the new IdentityUser. If it failed, it will return null. 
+    /// </summary>
+    /// <param name="email"></param>
+    /// <param name="password"></param>
+    /// <returns></returns>
+    public async Task<IdentityUser?> CreateUserAsync(string username, string password) 
+    {
+        IdentityUser newUser = new IdentityUser();
+        newUser.UserName = username;
+        newUser.Email = username;
+
+        var res = await _userManager.CreateAsync(newUser, password);
+
+        if (res.Succeeded)
+        {
+            return newUser;
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public void LogoutUser() { }
 

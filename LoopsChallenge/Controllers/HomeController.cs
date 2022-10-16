@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using LoopsChallenge.Services;
 using Microsoft.AspNetCore.Mvc;
-using LoopsChallenge.Services;
 
 namespace LoopsChallenge.Controllers;
 
