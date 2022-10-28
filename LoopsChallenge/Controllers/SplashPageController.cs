@@ -23,6 +23,7 @@ public class SplashPageController : Controller
         }
 
         ViewData["needsRegistration"] = false;
+        System.Diagnostics.Debug.WriteLine("smth");
         return View("Index");
     }
 
