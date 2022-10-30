@@ -1,0 +1,16 @@
+﻿<div id="home-and-search">
+    <form style="width: 90%" method="post" asp-action="ViewSearchResults" asp-controller="CompanySearchResults">
+        <div class="input-group" style="width: 100%;">
+            <div class="form-outline" style="width: 70%; border: 1px solid gray; border-radius: 2px;">
+                <input type="search" id="company-search-query" name="company-search-query" class="form-control" />
+                <label class="form-label" for="company-search-query">Search for a company</label>
+            </div>
+            <button type="submit" class="btn btn-primary" value="">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+    <a href="/">
+        <i class="fas fa-home"></i>
+    </a>
+</div>

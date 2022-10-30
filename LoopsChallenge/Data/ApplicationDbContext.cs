@@ -8,7 +8,9 @@ namespace LoopsChallenge.Data
     {
 
         public DbSet<UserInfo> UserInfo { get; set; } = null;
-        public DbSet<ProfileDetails> ProfileDetails { get; set; } = null; 
+        public DbSet<ProfileDetails> ProfileDetails { get; set; } = null;
+        public DbSet<Company> Company { get; set; } = null;
+        public DbSet<Review> Review { get; set; } = null;
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

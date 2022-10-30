@@ -1,4 +1,5 @@
-﻿using LoopsChallenge.Services;
+﻿using LoopsChallenge.Controllers;
+using LoopsChallenge.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoopsChallenge.Controllers;
@@ -13,6 +14,7 @@ public class HomeController : Controller
         _identityService = identityService;
     }
 
+    [HttpGet]
     public IActionResult Index()
     {
         var user = HttpContext.User;

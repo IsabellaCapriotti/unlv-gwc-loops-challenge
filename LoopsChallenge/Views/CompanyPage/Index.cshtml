@@ -1,0 +1,29 @@
+﻿@using LoopsChallenge.Data.Entities;
+@using LoopsChallenge.Models;
+
+@model CompanyPageModel
+
+<div class="main-page-container">
+    @await Component.InvokeAsync("SearchBar")
+
+    <h1 id="company-name-display">@Model.Company.CompanyDisplayName</h1>
+
+    <div class="row">
+        <button type="button" id="add-review-btn">Add a review
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+    
+
+    <div id="review-container">
+        <h2>Reviews</h2>
+
+        @foreach (var review in Model.Reviews)
+        {
+            <div class="company-review">
+                <p>@review.ReviewText</p>
+            </div>
+        }
+    </div>
+
+</div>

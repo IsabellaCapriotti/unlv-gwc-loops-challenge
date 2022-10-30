@@ -4,6 +4,7 @@ using LoopsChallenge.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LoopsChallenge.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221030011349_AddReviewAndCompany")]
+    partial class AddReviewAndCompany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,10 +112,6 @@ namespace LoopsChallenge.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("NormalizedTagText")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ReviewId")
                         .HasColumnType("int");
@@ -358,7 +356,7 @@ namespace LoopsChallenge.Data.Migrations
             modelBuilder.Entity("LoopsChallenge.Data.Entities.Review", b =>
                 {
                     b.HasOne("LoopsChallenge.Data.Entities.Company", "Company")
-                        .WithMany("Reviews")
+                        .WithMany()
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -449,11 +447,6 @@ namespace LoopsChallenge.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("LoopsChallenge.Data.Entities.Company", b =>
-                {
-                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("LoopsChallenge.Data.Entities.Review", b =>

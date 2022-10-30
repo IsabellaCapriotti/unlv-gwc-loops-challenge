@@ -1,0 +1,24 @@
+﻿@using LoopsChallenge.Controllers;
+@using LoopsChallenge.Data.Entities;
+@using LoopsChallenge.Models;
+@model CompanySearchResultsModel
+
+<div class="main-page-container">
+    @await Component.InvokeAsync("SearchBar")
+    <h1>Results</h1>
+
+    @foreach(Company result in Model.CompaniesToShow){
+        <div class="company-result-container">
+            <a href="/company/@result.Id">@result.CompanyDisplayName</a>
+            <p>@result.Reviews.Count reviews</p>
+        </div>
+    }
+
+    @if(Model.CompaniesToShow.Count == 0){
+        <p>Looks like no one has added any reviews for @Model.SearchQuery yet.
+            <a href="/company/newCompany?newCompanyName=@Model.SearchQuery">Be the first?</a>
+        </p>
+    }
+    
+</div>
+

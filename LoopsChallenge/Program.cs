@@ -26,6 +26,7 @@ namespace LoopsChallenge
             builder.Services.AddScoped<IIdentityService, IdentityService>();
 
             builder.Services.AddScoped<IUserInfoRepository, UserInfoRepository>();
+            builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 
             var app = builder.Build();
 
