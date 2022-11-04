@@ -18,6 +18,26 @@
                         <p class="p-note">Passwords must have at least 1 non-alphanumeric character, 1 digit, and 1 uppercase letter.</p>
                         <label for="Password">Choose a password: </label>
                         <input type="password" name="Password" maxlength="12" minlength="8"/>
+                        <script type = "text/javascript">
+                            function checkPassword(inputtxt) {
+                                var digits = /^(?=.*[0-9])$/;
+                                var upperLetters = /^(?=.*[A-Z])$/;
+                                var specialChars = /^(?=.*[!@#$%^&*])$/;
+                                if (!inputtxt.value.match(digits)) {
+                                    alert('Password must have at least 1 digit.')
+                                    return false;
+                                } else if (!inputtxt.value.match(upperLetters)) {
+                                    alert('Password must have at least 1 uppercase letter.')
+                                    return false;
+                                } else if (!inputtxt.value.match(specialChars)) {
+                                    alert('Password must have at least 1 non-alphanumeric character: !@#$%^&*')
+                                    return false;
+                                } else {
+                                    alert('Valid password.')
+                                    return true;
+                                }
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
