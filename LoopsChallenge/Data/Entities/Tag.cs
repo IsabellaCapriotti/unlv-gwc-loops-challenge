@@ -1,7 +1,10 @@
-﻿namespace LoopsChallenge.Data.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace LoopsChallenge.Data.Entities;
 
 public class Tag
 {
+    [Key]
     public int Id { get; set; }
 
     public string TagText { get; set; }

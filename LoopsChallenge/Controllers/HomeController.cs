@@ -15,10 +15,10 @@ public class HomeController : Controller
     }
 
     [HttpGet]
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
         var user = HttpContext.User;
-
+        
         if (_identityService.IsUserSignedIn(user))
         {
             return View();

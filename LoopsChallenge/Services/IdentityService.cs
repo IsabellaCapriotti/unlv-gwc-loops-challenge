@@ -51,6 +51,8 @@ public class IdentityService : IIdentityService
         }
     }
 
-    public void LogoutUser() { }
+    public async Task LogoutUser() {
+        await _signInManager.SignOutAsync();
+    }
 
 }
