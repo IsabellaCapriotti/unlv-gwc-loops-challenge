@@ -19,7 +19,7 @@ public class Review
 
     public string ReviewText { get; set; }
 
-    public List<Tag> Tags { get; set; }
+    public string SerializedTags { get; set; }
 
     [Range(1,10)]
     public int Rating { get; set; }

@@ -27,7 +27,7 @@ public class CompanyRepository : ICompanyRepository
         Company company = new Company
         {
             CompanyDisplayName = companyName,
-            CompanyNormalizedName = companyName.ToUpperInvariant(),
+            CompanyNormalizedName = companyName.ToLowerInvariant(),
             Id = Guid.NewGuid()
         };
 

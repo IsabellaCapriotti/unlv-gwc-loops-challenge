@@ -7,4 +7,6 @@ public class Tag
     public string TagText { get; set; }
 
     public string NormalizedTagText { get; set; }
+
+    public bool IsDefaultSuggested { get; set; } = false;
 }

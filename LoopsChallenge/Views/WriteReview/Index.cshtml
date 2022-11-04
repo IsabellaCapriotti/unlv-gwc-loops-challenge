@@ -1,1 +1,16 @@
-﻿write review
+﻿@using LoopsChallenge.Data.Entities;
+@using LoopsChallenge.Models;
+
+@model WriteReviewModel;
+
+<div class="main-page-container">
+    <h2>Write your review of @Model.Company.CompanyDisplayName</h2>
+
+    <form id="review-form">
+        <div id="tags-container">
+            @foreach(Tag tag in Model.SuggestedTags){
+                <span class="badge">@tag.TagText</span>
+            }
+        </div>
+    </form>
+</div>

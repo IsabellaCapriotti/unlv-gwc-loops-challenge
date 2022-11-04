@@ -23,11 +23,11 @@ public class RegisterController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        return View(new RegisterControllerModel());
+        return View(new RegisterModel());
     }
 
     [HttpPost]
-    public async Task<IActionResult> SubmitRegistration(RegisterControllerModel registrationInfo)
+    public async Task<IActionResult> SubmitRegistration(RegisterModel registrationInfo)
     {
         System.Diagnostics.Debug.WriteLine(JsonSerializer.Serialize(registrationInfo));
 
@@ -63,7 +63,7 @@ public class RegisterController : Controller
         }
         
 
-        return View("Index", new RegisterControllerModel());
+        return View("Index", new RegisterModel());
     }
 
     // TODO: Send an AJAX call to this endpoint when they enter an email to make sure it's available

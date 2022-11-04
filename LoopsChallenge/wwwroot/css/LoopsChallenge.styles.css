@@ -274,3 +274,35 @@
     border-radius: 5px;
     padding: 10px;
 }
+
+#add-review-container{
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    width: 30%; 
+    background-color: var(--white-light);
+    box-shadow: var(--subtle-box-shadow);
+    border: 1px solid var(--silver);
+    border-radius: 3px;
+    padding: 10px;
+}
+
+#add-review-container a, #add-review-container i{
+    color: inherit;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+#add-review-container a:visited, #add-review-container a:active {
+    text-decoration: none;
+    color: inherit;
+} 
+
+
+#add-review-container i{
+    margin-left: 5px;
+}
+#add-review-container a:hover{
+    cursor: pointer;
+}
