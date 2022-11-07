@@ -12,7 +12,7 @@ public class ProfileDetails
    
     public string? Gender { get; set; }
     public string? Race { get; set; }
-    public bool? HispanicLatino { get; set; }
+    public bool? HispanicLatino { get; set; } = false;
     public string? Location { get; set; }
     public string? Bio { get; set; }
 }

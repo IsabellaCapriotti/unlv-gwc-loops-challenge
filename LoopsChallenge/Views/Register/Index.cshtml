@@ -5,19 +5,19 @@
 <div class="bg-main">
 
     <div class="register-container">
-        <h1>Let's learn more about you</h1>
+        <h1>Let's learn more about you!</h1>
 
         <form method="post">
             <div id="register-page1" class="register-form">
                 <div class="register-form-inner">
                     <div class="vertical-entry">
                         <label for="Email">Enter your email address: </label>
-                        <input type="text" name="Email" />
+                        <input type="email" name="Email" />
                     </div>
                     <div class="vertical-entry">
-                        <p class="p-note">Passwords must have at least 1 non-alphanumeric character, 1 digit, and 1 uppercase letter.</p>
+                        <p class="p-note">Passwords must be at least 8 characters long, have at least 1 non-alphanumeric character, 1 digit, and 1 lowercase and 1 uppercase letter.</p>
                         <label for="Password">Choose a password: </label>
-                        <input type="password" name="Password" />
+                        <input type="password" name="Password" id="register-password-input" minlength="8"/>
                     </div>
                 </div>
             </div>
@@ -109,6 +109,7 @@
 <script type="text/javascript">
 
     var currPage = 1; 
+    var validPassword = false;
 
     function hideAllFormsExceptCurrent(){
 
@@ -140,6 +141,12 @@
 
     // Advance to next page when forward arrow is clicked
     $("#register-forward-arrow").click( () => {
+
+        if(currPage == 1 && !validPassword){
+            alert("Please enter a valid password before continuing.");
+            return;
+        }
+
         currPage++;
         hideAllFormsExceptCurrent();
     });
@@ -177,5 +184,19 @@
       
         console.log(this.files);
     });
+
+    // Password validation              
+    $("#register-password-input").change( function(e)  {
+        validPassword = checkPassword(e.target.value);
+        if(!validPassword){
+            alert("Please enter a valid password.");
+        }
+    });
+
+    function checkPassword(inputtxt) {
+        var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@@#\$%\^&\*])(?=.{8,})");
+        return strongRegex.test(inputtxt);
+    }
+          
 
 </script>

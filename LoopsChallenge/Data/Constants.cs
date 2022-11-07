@@ -2,5 +2,5 @@
 
 internal class Constants
 {
-    public static List<string> DefaultTags = new() { "Woman", "LGBTQ+", "Black", "Transgender", "POC", "Autism", "Asian", "Disability", "Nonbinary" };
+    public static List<string> DefaultTags = new() { "Woman", "LGBTQ+", "Black", "Transgender", "POC", "Autism", "Asian", "Disability", "Nonbinary", "Latinx" };
 }

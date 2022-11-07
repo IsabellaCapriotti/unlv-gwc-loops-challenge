@@ -4,13 +4,83 @@
 @model WriteReviewModel;
 
 <div class="main-page-container">
-    <h2>Write your review of @Model.Company.CompanyDisplayName</h2>
 
-    <form id="review-form">
+    <form id="review-form" method="post">
+        <h2>Write your review of @Model.Company.CompanyDisplayName</h2>
+
+        <h3>Tag your review to help others like you find it</h3>
         <div id="tags-container">
             @foreach(Tag tag in Model.SuggestedTags){
-                <span class="badge">@tag.TagText</span>
+                <span class="badge badge-secondary review-tag" data-chosen=false>@tag.DisplayTagText</span>
             }
         </div>
+        <select multiple id="hidden-tag-select" name="ChosenTags" style="display: none;">
+            @foreach (Tag tag in Model.SuggestedTags)
+            {
+                <option id="@tag.NormalizedTagText" value="@tag.NormalizedTagText"></option>
+            }
+        </select>
+
+
+        <h3 style="margin-top: 35px;">Share your honest experiences</h3>
+        <div id="review-stars">
+            @for(int i=0; i< 10; i++){
+                <span id="star-@i" class="fas fa-star" data-star-order="@i"></span>
+            }
+        </div>
+        <input id="hidden-star-input" name="StarRating" type="number" style="display: none;"/>
+
+        <textarea rows="8" id="review-content" name="ReviewContent"></textarea>
+
+        <input type="submit"/>
     </form>
 </div>
+
+<script type="text/javascript">
+
+    const activeTagColor = "#a2d729";
+    var currentStars = 0;
+    const maxStars = 10;
+
+    $(".review-tag").click(function (){
+        var isCurrentlySelected = $(this).attr("data-chosen");
+
+        if(isCurrentlySelected == "false"){
+
+            // Change style to show selection 
+            $(this).attr("style", "background-color: " + activeTagColor + "; color: white;");
+            $(this).attr("data-chosen", true);
+            var tagText = $(this).text();
+
+            // Add to hidden select
+            $("#" + tagText.toLowerCase()).attr("selected", true);
+        }
+        else{
+            // Change style to show selection
+            $(this).attr("style", "");
+            $(this).attr("data-chosen", false);
+
+            // Remove from hidden select
+            var tagText = $(this).text();
+            $("#" + tagText.toLowerCase()).removeAttr("selected");
+
+        }
+        
+    });
+
+    $(".fa-star").mouseover(function(){
+        var starOrder = parseInt($(this).attr("data-star-order"));
+
+        if(starOrder < currentStars){
+            $(".fa-star").removeClass("selected-star");
+        }
+
+        for (var i = 0; i <= starOrder; i++) {
+            $("#star-" + i).addClass("selected-star");
+        }
+        currentStars = starOrder; 
+
+        $("#hidden-star-input").val(currentStars);
+    })
+    
+</script>

@@ -24,17 +24,18 @@ namespace LoopsChallenge.Data
             builder.Entity<Tag>()
                 .HasIndex(t => t.NormalizedTagText)
                 .IsUnique();
-            
-            //foreach(string tagText in Constants.DefaultTags)
-            //{
-            //    builder.Entity<Tag>()
-            //        .HasData(new Tag
-            //        {
-            //            TagText = tagText,
-            //            NormalizedTagText = tagText.ToLowerInvariant(),
-            //            IsDefaultSuggested = true
-            //        });
-            //}
+
+            foreach (string tagText in Constants.DefaultTags)
+            {
+                builder.Entity<Tag>()
+                    .HasData(new Tag
+                    {
+                        
+                        DisplayTagText = tagText,
+                        NormalizedTagText = tagText,
+                        IsDefaultSuggested = true
+                    });
+            }
 
             base.OnModelCreating(builder);
 

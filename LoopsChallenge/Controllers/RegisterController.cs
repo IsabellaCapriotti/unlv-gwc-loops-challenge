@@ -23,14 +23,16 @@ public class RegisterController : Controller
     [HttpGet]
     public IActionResult Index()
     {
+        if (_identityService.IsUserSignedIn(HttpContext.User))
+        {
+            return RedirectToAction("Index", "Home");
+        }
         return View(new RegisterModel());
     }
 
     [HttpPost]
     public async Task<IActionResult> SubmitRegistration(RegisterModel registrationInfo)
     {
-        System.Diagnostics.Debug.WriteLine(JsonSerializer.Serialize(registrationInfo));
-
         if(!String.IsNullOrEmpty(registrationInfo.Email) && !String.IsNullOrEmpty(registrationInfo.Password))
         {
             // Create user in Identity
@@ -47,8 +49,8 @@ public class RegisterController : Controller
                     {
                         DisplayName = registrationInfo.DisplayName,
                         Gender = registrationInfo.Gender,
-                        Race = registrationInfo.Race,
-                        HispanicLatino = registrationInfo.HispanicLatino,
+                        Race = JsonSerializer.Serialize(registrationInfo.Race),
+                        HispanicLatino = registrationInfo.HispanicLatino ?? false,
                         Location = registrationInfo.Location,
                         Bio = registrationInfo.Bio,
                     }

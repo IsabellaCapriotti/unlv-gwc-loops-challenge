@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using LoopsChallenge.Data.Entities;
+using LoopsChallenge.Data.Repositories;
+using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
 namespace LoopsChallenge.Services;
@@ -7,11 +9,13 @@ public class IdentityService : IIdentityService
 {
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
+    private readonly IUserInfoRepository _userInfoRepository;
 
-    public IdentityService(SignInManager<IdentityUser> signinManager, UserManager<IdentityUser> userManager)
+    public IdentityService(SignInManager<IdentityUser> signinManager, UserManager<IdentityUser> userManager, IUserInfoRepository userInfoRepository)
     {
         _signInManager = signinManager;
         _userManager = userManager;
+        _userInfoRepository = userInfoRepository;
     }
 
     public bool IsUserSignedIn(ClaimsPrincipal user)
@@ -26,13 +30,7 @@ public class IdentityService : IIdentityService
         return signInResult.Succeeded;
     }
 
-    /// <summary>
-    /// Creates an IdentityUser instance in the database for the passed email and password. If the creation succeeded,
-    /// it will return a reference to the new IdentityUser. If it failed, it will return null. 
-    /// </summary>
-    /// <param name="email"></param>
-    /// <param name="password"></param>
-    /// <returns></returns>
+    /// <inheritdoc//>
     public async Task<IdentityUser?> CreateUserAsync(string username, string password) 
     {
         IdentityUser newUser = new IdentityUser();
@@ -53,6 +51,24 @@ public class IdentityService : IIdentityService
 
     public async Task LogoutUser() {
         await _signInManager.SignOutAsync();
+    }
+
+    /// <inheritdoc/>
+    public async Task<ProfileDetails> GetProfileDetailsForIdentityUserAsync(ClaimsPrincipal user)
+    {
+        IdentityUser foundUser = await _userManager.FindByNameAsync(user.Identity.Name);
+
+        if(foundUser != null)
+        {
+            return await _userInfoRepository.GetProfileDetailsForIdentityUserAsync(foundUser);
+        }
+        return null;
+    }
+
+    /// <inheritdoc/>
+    public async Task<IdentityUser> GetIdentityUserAsync(ClaimsPrincipal user)
+    {
+        return await _userManager.FindByNameAsync(user.Identity.Name);
     }
 
 }

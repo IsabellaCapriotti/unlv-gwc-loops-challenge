@@ -1,15 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LoopsChallenge.Data.Entities;
 
 public class Tag
 {
+    public string DisplayTagText { get; set; }
+
+    private string _normalized;
+
     [Key]
-    public int Id { get; set; }
+    public string NormalizedTagText
+    {
+        get => _normalized;
 
-    public string TagText { get; set; }
-
-    public string NormalizedTagText { get; set; }
+        set => _normalized = value.ToLowerInvariant();
+    }
 
     public bool IsDefaultSuggested { get; set; } = false;
 }

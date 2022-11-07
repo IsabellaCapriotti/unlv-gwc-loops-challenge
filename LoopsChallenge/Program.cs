@@ -27,6 +27,8 @@ namespace LoopsChallenge
 
             builder.Services.AddScoped<IUserInfoRepository, UserInfoRepository>();
             builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+            builder.Services.AddScoped<ITagRepository, TagRepository>();
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
             var app = builder.Build();
 
