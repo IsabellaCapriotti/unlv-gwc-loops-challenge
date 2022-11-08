@@ -18,6 +18,8 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         var user = HttpContext.User;
+
+        //_identityService.LogoutUser();
         
         if (_identityService.IsUserSignedIn(user))
         {
