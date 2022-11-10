@@ -6,7 +6,7 @@
 
 <html>
 <body>
-    <div class="main-page-container">
+    <div class="main-page-container white-page-container">
         @await Component.InvokeAsync("SearchBar")
 
         <h1 id="company-name-display">@Model.Company.CompanyDisplayName</h1>
@@ -44,15 +44,18 @@
             @foreach (var review in Model.Reviews)
             {
                 <div class="company-review">
-                    <div class="review-stars">
-                        @for (var i = 0; i < review.Rating; i++)
-                        {
-                            <span class="fas fa-star selected-star"></span>
-                        }
-                        @for (var i = review.Rating; i < 10; i++)
-                        {
-                            <span class="fas fa-star"></span>
-                        }
+                    <div style="display:flex; flex-flow:row; justify-content: space-between;">
+                        <div class="review-stars">
+                            @for (var i = 0; i < review.Rating; i++)
+                            {
+                                <span class="fas fa-star selected-star"></span>
+                            }
+                            @for (var i = review.Rating; i < 10; i++)
+                            {
+                                <span class="fas fa-star"></span>
+                            }
+                        </div>
+                        <button class="btn btn-primary connect-btn">Connect with this reviewer</button>
                     </div>
 
                     <div class="tags-container">

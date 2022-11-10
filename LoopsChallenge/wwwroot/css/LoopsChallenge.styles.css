@@ -379,8 +379,6 @@
     padding: 30px;
 }
 
-
-
 #home-and-search input{
     background-color: white;
 }
@@ -389,6 +387,12 @@
     transform: scale(1.5);
     color: white;
 }
+
+
+.white-page-container #home-and-search i,  .white-page-container #logout-btn{
+    color: var(--silver) !important;
+}
+
 
 #home-and-search a{
     text-decoration: none;
