@@ -1,5 +1,6 @@
 ﻿@using LoopsChallenge.Data.Entities;
 @using LoopsChallenge.Models;
+@using System.Text.Json;
 
 @model CompanyPageModel
 
@@ -13,6 +14,28 @@
         <i class="fas fa-plus"></i>
     </div>
     
+    <div id="review-filters">
+        <h2>Find Reviews from People Like You</h2>
+        <div class="tags-container">
+            @foreach (Tag tag in Model.SuggestedTags)
+            {
+                <span class="badge badge-secondary review-tag filter-tag" data-chosen=false>@tag.DisplayTagText</span>
+            }
+        </div>
+        <h2 style="margin-top: 30px;">Search Reviews by Text</h2>
+        <div class="input-group" style="width: 100%;">
+            <div class="form-outline" style="width: 70%; border: 1px solid gray; border-radius: 2px;">
+                <input type="search" id="review-search-query" name="review-search-query" class="form-control" />
+                <label class="form-label" for="review-search-query"></label>
+            </div>
+            <button type="submit" class="btn btn-primary" id="search-review-btn" value="">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="searches-container">
+
+        </div>
+    </div>
 
     <div id="review-container">
         <h2>Reviews</h2>
@@ -20,9 +43,104 @@
         @foreach (var review in Model.Reviews)
         {
             <div class="company-review">
+                <div class="review-stars">
+                    @for(var i=0; i < review.Rating; i++){
+                        <span class="fas fa-star selected-star"></span>
+                    }
+                    @for(var i=review.Rating; i < 10; i++){
+                        <span class="fas fa-star"></span>
+                    }
+                </div>
+
+                <div class="tags-container">
+                    @foreach (string tag in JsonSerializer.Deserialize<List<string>>(review.SerializedTags))
+                    {
+                        <span class="badge badge-secondary review-tag" data-chosen=false>@tag</span>
+                    }
+                </div>
                 <p>@review.ReviewText</p>
             </div>
         }
     </div>
 
 </div>
+
+<script type="text/javascript">
+    const activeTagColor = "#a2d729";
+    var currentFilters = [];
+    var currentSearch = "";
+
+    $(".filter-tag").click(function () {
+        var isCurrentlySelected = $(this).attr("data-chosen");
+
+        if (isCurrentlySelected == "false") {
+            // Change style to show selection
+            $(this).attr("style", "background-color: " + activeTagColor + "; color: white;");
+            $(this).attr("data-chosen", true);
+            var tagText = $(this).text().toLowerCase();
+            currentFilters.push(tagText);
+        }
+        else {
+            // Change style to show selection
+            $(this).attr("style", "");
+            $(this).attr("data-chosen", false);
+            var tagText = $(this).text().toLowerCase();
+            currentFilters = currentFilters.filter(t => t!= tagText);
+        }
+
+        // Filter results
+        filterReviews();
+
+    });
+
+    $("#search-review-btn").click(function(){
+        var searchTerm = $("#review-search-query").val().toLowerCase();
+        currentSearch = searchTerm;
+        filterReviews();
+    })
+
+    function filterReviews(){
+        
+        var allReviews = $(".company-review");
+
+        // Show all if no filters are applied
+        if(currentSearch == "" && currentFilters.length == 0){
+            allReviews.show();
+        }
+        
+        for(var i=0; i < allReviews.length; i++){
+             // Check search query
+             if(currentSearch != ""){
+                var reviewText = $(allReviews[i]).children("p").text().toLowerCase();
+
+                if (reviewText.includes(currentSearch)) {
+                    $(allReviews[i]).show();
+                    continue;
+                }
+                else {
+                    $(allReviews[i]).hide();
+                }
+             }
+    
+             // Check tags
+             if(currentFilters.length > 0){
+                var tags = $(allReviews[i]).children(".tags-container").children("span");
+                var hide = true;
+
+                for (var j = 0; j < tags.length; j++) {
+                    var currTagText = tags[j].innerText;
+                    if (currentFilters.indexOf(currTagText.toLowerCase()) != -1) {
+                        $(allReviews[i]).show();
+                        hide = false;
+                        break;
+                    }
+                }
+
+                if (hide) {
+                    $(allReviews[i]).hide();
+                }
+             }
+             
+        }
+    }
+</script>

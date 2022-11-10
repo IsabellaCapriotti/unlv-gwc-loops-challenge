@@ -10,7 +10,6 @@
     @foreach(Company result in Model.CompaniesToShow){
         <div class="company-result-container">
             <a href="/company/@result.Id">@result.CompanyDisplayName</a>
-            <p>@result.Reviews.Count reviews</p>
         </div>
     }
 

@@ -1,15 +1,60 @@
-﻿
-<div class="main-page-container">
-    @await Component.InvokeAsync("SearchBar")
-    <section class="section-hero">
-        <div class="hero">
-            <h1 class="heading-primary">Tech Without Borders</h1>
-            <p class="hero-description">
-                Many minorities, such as women, LGBTQ+ individuals, and People of Color, are still not represented in the same way and given the saem respect within the industry. Our goal is to eliminate the undiversified nature that occurs within the technology industry by providing resources to minority groups, allowing them to connect with others on a professional platform.
-            </p>
+﻿<head> 
+    <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="home-page-container">
+        <div class="search-bar">
+            @await Component.InvokeAsync("SearchBar")
         </div>
-    </section>
-</div>
+        <section class="section-hero">
+            <div class="hero">
+                <h1 class="welcome-text"><strong>Welcome to Tech Without Borders!</strong></h1>
+                <img id="logo-home" src="assets/logo.jpg" alt="Tech Without Borders Illustrated Logo"/>
+            </div>
+            <h2> Our Mission </h2>
+            <p class="hero-description">
+                Many minorities, such as women, LGBTQ+ individuals, and People of Color, are still not represented in the same way and given the same respect within the industry. Our goal is to eliminate the undiversified nature that occurs within the technology industry by providing resources to minority groups, allowing them to connect with others on a professional platform.
+            </p>  
+         </section>
+
+        <section class="section-spotlights">
+            <h2 class=spotlights-title> Spotlights</h2>
+            <div class="spotlights">
+                <div class="spotlight-feature"">
+                    <h3 class="sl-title"> Spotlight 1 </h3>
+                    <img id = "spotFeat1" class="spotlight-img" src="assets/spotlight-1.jpg">
+                    <p> Short bio </p>
+                </div>
+                <div class="spotlight-feature">
+                    <h3 class="sl-title"> Spotlight 2 </h3>
+                    <img id = "spotFeat2" class="spotlight-img" src="assets/spotlight-2.jpg">
+                    <p> Short bio </p>
+                </div>
+                <div class="spotlight-feature">
+                    <h3 class="sl-title"> Spotlight 3 </h3>
+                    <img id = "spotFeat3" class="spotlight-img" src="assets/spotlight-3.jpg">
+                    <p> Short bio </p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="website-features">
+            <h2>Features</h2>
+            <section id="profile-feature" class="feature-element">
+                <h3> Create A Profile</h3>
+            </section>
+            <section id="view-companies-feature" class="feature-element">
+                <h3>View Companies</h3>
+            </section>
+            <section id="share-feature" class="feature-element">
+                <h3>Share Your Experiences</h3>
+            </section>
+        </section>
+
+    </div>
+</body>
 
 
 
