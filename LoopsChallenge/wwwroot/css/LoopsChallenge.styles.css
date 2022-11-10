@@ -19,13 +19,14 @@
     @import url('https://fonts.googleapis.com/css2?family=Cabin&display=swap');
 }
 
+
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48
 }
 
 /* Splash Page */
 .header-font {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Cabin;
     font-weight: 700;
     font-size: 4rem;
     color: white;
@@ -378,12 +379,7 @@
     padding: 30px;
 }
 
-#home-and-search{
-    display: flex;
-    flex-flow: row;
-    justify-content: space-between;
-    align-items: center;
-}
+
 
 #home-and-search input{
     background-color: white;
@@ -607,8 +603,11 @@
     font-size: 3.5em;
 }
 
-#logout-btn{
-    margin: 20px;
+#logout-btn {
+    margin: 0px;
+    padding: 0px;
+    font-size: 24px;
+    font-family: "Montserrat", sans-serif;
 }
 
 #user-card {
