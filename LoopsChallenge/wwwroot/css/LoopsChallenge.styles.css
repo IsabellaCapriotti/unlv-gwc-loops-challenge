@@ -204,6 +204,7 @@
     width: 100%;
     height: 100%;
     background-color: var(--white-light);
+    overflow: auto;
 }
 
 /* Top bar */
@@ -258,7 +259,7 @@
 }
 
 #review-container{
-    margin-top: 20px;
+    margin-top: 30px;
     display: flex;
     flex-flow: column;
     font-family: 'Montserrat', sans-serif;
@@ -269,11 +270,36 @@
     font-weight: 400;
 }
 
+#review-filters .filter-tag {
+    font-size: 1.2rem;
+    transition: background-color linear .8s;
+}
+
+#search-review-btn{
+    background-color: var(--green-light);
+}
+
 .company-review{
     font-size: 1.8rem;
     border: 1px solid var(--silver);
     border-radius: 5px;
     padding: 10px;
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 15px;
+}
+
+.company-review review-tag{
+    font-size: 1.5rem;
+}
+
+.company-review p{
+    font-size: 1.5rem;
+    font-weight: 200;
+}
+
+.company-review .review-stars{
+    margin-bottom: 0px;
 }
 
 #add-review-container{
@@ -281,12 +307,13 @@
     flex-flow: row;
     justify-content: center;
     align-items: center;
-    width: 30%; 
+    width: 40vw;
     background-color: var(--white-light);
     box-shadow: var(--subtle-box-shadow);
     border: 1px solid var(--silver);
     border-radius: 3px;
     padding: 10px;
+    margin: 30px 0px;
 }
 
 #add-review-container a, #add-review-container i{
@@ -299,7 +326,6 @@
     text-decoration: none;
     color: inherit;
 } 
-
 
 #add-review-container i{
     margin-left: 5px;
@@ -337,17 +363,40 @@
     border-color: var(--green-light);
 }
 
-#review-stars{
+.review-stars{
     display: flex;
     flex-flow: row;
     flex-wrap: nowrap;
     margin-bottom: 35px;
 }
 
-#review-stars .fa-star{
+.review-stars .fa-star{
     font-size: 2.2rem;
 }
 
-#review-stars .selected-star{
+.review-stars .selected-star{
     color: orange;
+}
+
+#new-tag-input{
+    outline: none;
+    background-color: inherit;
+    border: none;
+}
+
+#new-tag-input:active{
+    background-color: inherit;
+}
+
+#add-tag-btn{
+    border: none;
+    outline: none;
+}
+
+#add-tag-btn i{
+    transition: color linear .4s;
+}
+
+#add-tag-btn i:hover{
+    color: var(--green-light);
 }

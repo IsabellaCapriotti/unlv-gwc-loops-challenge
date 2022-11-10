@@ -28,4 +28,15 @@ public class TagRepository : ITagRepository
         || (t.NormalizedTagText.Contains("latinx", StringComparison.InvariantCultureIgnoreCase) && (profileDetails.HispanicLatino ?? false))
         ).ToList();
     }
+
+    public async Task<Tag?> GetTagByTextIfExistsAsync(string text)
+    {
+        return await _dbContext.Tag.FindAsync(text);
+    }
+
+    public async Task<Tag> AddTagAsync(Tag newTag)
+    {
+        await _dbContext.Tag.AddAsync(newTag);
+        return newTag;
+    }
 }

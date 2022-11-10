@@ -1,6 +1,7 @@
 ﻿using LoopsChallenge.Data.Entities;
 using LoopsChallenge.Data.Repositories;
 using LoopsChallenge.Models;
+using LoopsChallenge.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LoopsChallenge.Controllers;
@@ -9,15 +10,22 @@ namespace LoopsChallenge.Controllers;
 public class CompanyPageController : Controller
 {
     private readonly ICompanyRepository _companyRepository;
+    private readonly ITagRepository _tagRepository;
+    private readonly IIdentityService _identityService;
 
-    public CompanyPageController(ICompanyRepository companyRepository)
+    private readonly IList<Tag> _defaultSuggestedTags;
+
+    public CompanyPageController(ICompanyRepository companyRepository, ITagRepository tagRepository, IIdentityService identityService)
     {
         _companyRepository = companyRepository;
+        _tagRepository = tagRepository;
+        _identityService = identityService;
+        _defaultSuggestedTags = _tagRepository.GetDefaultSuggestedTags();
     }
 
     [HttpGet]
     [Route("/company/{companyId}")]
-    public IActionResult Index([FromRoute] Guid companyId)
+    public async Task<IActionResult> Index([FromRoute] Guid companyId)
     {
         Company matchingCompany = _companyRepository.GetCompanyById(companyId);
 
@@ -27,8 +35,11 @@ public class CompanyPageController : Controller
         }
 
         List<Review> companyReviews = _companyRepository.GetReviewsForCompany(companyId);
+        ProfileDetails userProfileDetails = await _identityService.GetProfileDetailsForIdentityUserAsync(HttpContext.User);
 
-        return View("Index", new CompanyPageModel { Company = matchingCompany, Reviews = companyReviews });
+        List<Tag> tagsToSuggest = _defaultSuggestedTags.Concat(_tagRepository.GetCustomSuggestedTags(userProfileDetails)).DistinctBy(t => t.NormalizedTagText).ToList();
+
+        return View("Index", new CompanyPageModel { Company = matchingCompany, Reviews = companyReviews, SuggestedTags = tagsToSuggest });
     }
 
     [HttpGet]

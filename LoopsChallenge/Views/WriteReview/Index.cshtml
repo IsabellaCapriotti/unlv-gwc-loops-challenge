@@ -9,28 +9,34 @@
         <h2>Write your review of @Model.Company.CompanyDisplayName</h2>
 
         <h3>Tag your review to help others like you find it</h3>
-        <div id="tags-container">
+        <div class="tags-container">
             @foreach(Tag tag in Model.SuggestedTags){
                 <span class="badge badge-secondary review-tag" data-chosen=false>@tag.DisplayTagText</span>
             }
+            <span id="new-tag-container" class="badge badge-secondary">
+                <input id="new-tag-input" placeholder="Add your own tag"/>
+                <button id="add-tag-btn" type="button">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </span>
         </div>
         <select multiple id="hidden-tag-select" name="ChosenTags" style="display: none;">
             @foreach (Tag tag in Model.SuggestedTags)
             {
-                <option id="@tag.NormalizedTagText" value="@tag.NormalizedTagText"></option>
+                <option id="@tag.NormalizedTagText" value="@tag.DisplayTagText"></option>
             }
         </select>
 
 
         <h3 style="margin-top: 35px;">Share your honest experiences</h3>
-        <div id="review-stars">
+        <div class="review-stars">
             @for(int i=0; i< 10; i++){
                 <span id="star-@i" class="fas fa-star" data-star-order="@i"></span>
             }
         </div>
         <input id="hidden-star-input" name="StarRating" type="number" style="display: none;"/>
 
-        <textarea rows="8" id="review-content" name="ReviewContent"></textarea>
+        <textarea required rows="8" id="review-content" name="ReviewContent"></textarea>
 
         <input type="submit"/>
     </form>
@@ -42,12 +48,15 @@
     var currentStars = 0;
     const maxStars = 10;
 
-    $(".review-tag").click(function (){
+    // Selecting existing tags
+    $(".review-tag").click(handleTagSelect);
+
+    function handleTagSelect(){
         var isCurrentlySelected = $(this).attr("data-chosen");
 
-        if(isCurrentlySelected == "false"){
+        if (isCurrentlySelected == "false") {
 
-            // Change style to show selection 
+            // Change style to show selection
             $(this).attr("style", "background-color: " + activeTagColor + "; color: white;");
             $(this).attr("data-chosen", true);
             var tagText = $(this).text();
@@ -55,7 +64,7 @@
             // Add to hidden select
             $("#" + tagText.toLowerCase()).attr("selected", true);
         }
-        else{
+        else {
             // Change style to show selection
             $(this).attr("style", "");
             $(this).attr("data-chosen", false);
@@ -65,9 +74,44 @@
             $("#" + tagText.toLowerCase()).removeAttr("selected");
 
         }
+    }
+
+    // Adding new tags
+    $("#add-tag-btn").click(function (){
+
+        var newTagText = $("#new-tag-input").val();
         
+        if(newTagText == ""){
+            alert("Please enter a name for your new tag before submitting.");
+            return;
+        }
+
+        // Create new tag in visible tags
+        var tagsContainer = $(".tags-container");
+        var newSpan = document.createElement("span");
+        newSpan.classList.add("badge", "badge-secondary", "review-tag");
+        newSpan.setAttribute("data-chosen", "true");
+        newSpan.setAttribute("style", "background-color: " + activeTagColor + "; color: white;");
+        newSpan.innerText = newTagText;
+        newSpan.onclick = handleTagSelect;
+
+        var newTagInputContainer = $("#new-tag-container");
+        newTagInputContainer.remove();
+        tagsContainer.remove("#new-tag-container");
+        tagsContainer.append(newSpan, newTagInputContainer);
+        $("#new-tag-input").val("");
+
+        // Create new option in hidden select
+        var hiddenSelect = $("#hidden-tag-select");
+        var newOption = document.createElement("option");
+        newOption.setAttribute("id", newTagText.toLowerCase());
+        newOption.setAttribute("value", newTagText);
+        newOption.setAttribute("selected", "selected");
+        hiddenSelect.append(newOption);
+
     });
 
+    // Star rating
     $(".fa-star").mouseover(function(){
         var starOrder = parseInt($(this).attr("data-star-order"));
 

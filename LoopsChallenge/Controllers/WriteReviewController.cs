@@ -46,6 +46,25 @@ public class WriteReviewController : Controller
     [Route("{companyId}")]
     public async Task<IActionResult> SubmitReview(WriteReviewModel model, [FromRoute] Guid companyId)
     {
+        // Create entries in the Tag repository for any newly added tags
+        foreach(string tag in model.ChosenTags)
+        {
+            Tag foundTag = await _tagRepository.GetTagByTextIfExistsAsync(tag);
+            
+            if(foundTag == null)
+            {
+                Tag newTag = new Tag
+                {
+                    DisplayTagText = tag,
+                    NormalizedTagText = tag.ToLowerInvariant(),
+                    IsDefaultSuggested = false
+                };
+
+                await _tagRepository.AddTagAsync(newTag);
+            }
+        }
+
+        // Create Review
         Review newReview = new Review
         {
             CompanyId = companyId,
