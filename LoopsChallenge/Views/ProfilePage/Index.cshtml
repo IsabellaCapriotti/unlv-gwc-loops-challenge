@@ -3,11 +3,71 @@
 
 @model ProfilePageModel;
 
-<div class="main-page-container">
-    @await Component.InvokeAsync("SearchBar")
-    <h1>
-        @Model.Username
-    </h1>
-    @Html.Partial("_LoginPartial")
-    
-</div>
+<html>
+
+<body style="background-color: #3a5969">
+    <div class="profile-page-container">
+        @await Component.InvokeAsync("SearchBar")
+
+        <div class="row">
+            <div class="col-lg-4 col-md-12 col-sm-12">
+                <div class="card" id="user-card">
+                    <div class="card-body">
+                        <div class="user-profile-image" style="background-image:url(assets/spotlight-1.jpg)">                        </div>
+                        <h1 id="profile-header">
+                            @Model.Username
+                        </h1>
+                        <div class="user-card-info" id="location-user">
+                            Located: @Model.Location
+                        </div>
+                        <div class="user-card-info" id="gender-user">
+                            Gender: @Model.Gender
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-md-12 col-sm-12">
+                <div class="card" id="profile-card">
+                    <div class="card-body">
+                        <h1 id="profile-header">
+                            Bio
+                        </h1>
+                        <div class="profile-card-info" id="user-bio">
+                            @Model.Bio
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="profile-card">
+                    <div class="card-body">
+                        <h1 id="profile-header">
+                            Personal Info
+                        </h1>
+
+                        <div class="profile-card-info" id="user-demo">
+                            <h3 class="profile-demo-header">
+                            Demographic Information
+                            </h3>
+                        </div>
+
+                        <div class="profile-card-info" id="user-gender">
+                            <h3 class="profile-demo-header">
+                                Gender
+                            </h3>
+                            @Model.Gender
+                        </div>
+                        <div class="profile-card-info" id="user-race">
+                            <h3 class="profile-demo-header">
+                                Race
+                            </h3>
+                            @Model.Race.Trim('[').Trim('"').TrimEnd(']').TrimEnd('"')
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

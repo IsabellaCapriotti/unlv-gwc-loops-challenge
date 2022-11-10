@@ -5,8 +5,9 @@
     --green-light: #a2d729;
     --white-light: #fafffd;
     --pink-dark: #8C4A56;
-    --rose:#A46B65;
+    --rose: #A46B65;
     --green-faded: #91B698;
+    --purple-brown-dark: #342F36;
     --subtle-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 0px;
     margin: 0px;
@@ -573,4 +574,77 @@
 
 #add-tag-btn i:hover{
     color: var(--green-light);
+}
+
+/* Profifle Page */
+.profile-page-container {
+    display: flex;
+    flex-flow: column;
+    padding: 50px;
+    width: auto;
+    height: auto;
+    background-color: var(--blue-dark);
+    color: white;
+}
+
+.name-text {
+    text-align: left;
+    font-family: "Montserrat", sans-serif;
+    font-size: 3.5em;
+}
+
+#profile-card{
+    background-color: var(--white-light);
+    margin-top: 30px;
+    box-shadow: 10px 10px var(--green-faded),
+        10px 10px 0 4px var(--purple-brown-dark);
+    border: 4px solid var(--purple-brown-dark);
+    color: var(--purple-brown-dark);
+}
+
+#profile-header {
+    font-family: "Montserrat", sans-serif;
+    font-size: 3.5em;
+}
+
+#logout-btn{
+    margin: 20px;
+}
+
+#user-card {
+    text-align:center;
+    background-color: var(--white-light);
+    margin-top: 30px;
+    box-shadow: 10px 10px var(--green-faded), 10px 10px 0 4px var(--purple-brown-dark);
+    border: 4px solid var(--purple-brown-dark);
+    color: var(--purple-brown-dark);
+}
+
+.user-card-info {
+    font-family: "Montserrat", sans-serif;
+    text-align: center;
+    color: darkgrey;
+    font-size: 1.5em;
+}
+
+.user-profile-image {
+    display: inline-block;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.profile-card-info {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.5em;
+    padding:10px;
+}
+
+.profile-demo-header {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1em;
+    font-weight:bold;
 }

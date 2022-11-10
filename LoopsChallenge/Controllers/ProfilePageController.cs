@@ -30,7 +30,14 @@ public class ProfilePageController : Controller
         {
             ProfileDetails foundUser = await _identityService.GetProfileDetailsForIdentityUserAsync(user);
             //this is where you get the info for the user?
-            return View(new ProfilePageModel {Username = foundUser.DisplayName});
+            return View(new ProfilePageModel {
+                Username = foundUser.DisplayName, 
+                Race = foundUser.Race,
+                Bio = foundUser.Bio, 
+                Ethnicity = foundUser.HispanicLatino, 
+                Gender = foundUser.Gender, 
+                Location = foundUser.Location,
+            });
         }
         else
         {
