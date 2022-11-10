@@ -8,6 +8,8 @@ public interface ITagRepository
 
     public List<Tag> GetCustomSuggestedTags(ProfileDetails profileDetails);
 
+    public List<Tag> GetAllTags();
+
     public Task<Tag?> GetTagByTextIfExistsAsync(string text);
 
     public Task<Tag> AddTagAsync(Tag newTag);

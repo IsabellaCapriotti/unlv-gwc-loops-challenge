@@ -29,6 +29,11 @@ public class TagRepository : ITagRepository
         ).ToList();
     }
 
+    public List<Tag> GetAllTags()
+    {
+        return _dbContext.Tag.ToList();
+    }
+
     public async Task<Tag?> GetTagByTextIfExistsAsync(string text)
     {
         return await _dbContext.Tag.FindAsync(text);

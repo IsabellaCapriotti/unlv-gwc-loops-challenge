@@ -37,9 +37,9 @@ public class CompanyPageController : Controller
         List<Review> companyReviews = _companyRepository.GetReviewsForCompany(companyId);
         ProfileDetails userProfileDetails = await _identityService.GetProfileDetailsForIdentityUserAsync(HttpContext.User);
 
-        List<Tag> tagsToSuggest = _defaultSuggestedTags.Concat(_tagRepository.GetCustomSuggestedTags(userProfileDetails)).DistinctBy(t => t.NormalizedTagText).ToList();
+        //List<Tag> tagsToSuggest = _defaultSuggestedTags.Concat(_tagRepository.GetCustomSuggestedTags(userProfileDetails)).DistinctBy(t => t.NormalizedTagText).ToList();
 
-        return View("Index", new CompanyPageModel { Company = matchingCompany, Reviews = companyReviews, SuggestedTags = tagsToSuggest });
+        return View("Index", new CompanyPageModel { Company = matchingCompany, Reviews = companyReviews, SuggestedTags = _tagRepository.GetAllTags() });
     }
 
     [HttpGet]
