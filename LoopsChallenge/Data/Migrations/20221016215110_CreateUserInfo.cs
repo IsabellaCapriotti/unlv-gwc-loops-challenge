@@ -19,8 +19,7 @@ namespace LoopsChallenge.Data.Migrations
                     Race = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HispanicLatino = table.Column<bool>(type: "bit", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
+                    Bio = table.Column<string>(type: "nvarchar(max)", nullable: true),                },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProfileDetails", x => x.Id);
