@@ -4,66 +4,72 @@
 
 @model CompanyPageModel
 
-<div class="main-page-container">
-    @await Component.InvokeAsync("SearchBar")
+<html>
+<body>
+    <div class="main-page-container">
+        @await Component.InvokeAsync("SearchBar")
 
-    <h1 id="company-name-display">@Model.Company.CompanyDisplayName</h1>
+        <h1 id="company-name-display">@Model.Company.CompanyDisplayName</h1>
 
-    <div id="add-review-container">
-        <a href="/review/@Model.Company.Id">Add a review</a>
-        <i class="fas fa-plus"></i>
-    </div>
-    
-    <div id="review-filters">
-        <h2>Find Reviews from People Like You</h2>
-        <div class="tags-container">
-            @foreach (Tag tag in Model.SuggestedTags)
+        <div id="add-review-container">
+            <a href="/review/@Model.Company.Id">Add a review</a>
+            <i class="fas fa-plus"></i>
+        </div>
+
+        <div id="review-filters">
+            <h2>Find Reviews from People Like You</h2>
+            <div class="tags-container">
+                @foreach (Tag tag in Model.SuggestedTags)
+                {
+                    <span class="badge badge-secondary review-tag filter-tag" data-chosen=false>@tag.DisplayTagText</span>
+                }
+            </div>
+            <h2 style="margin-top: 30px;">Search Reviews by Text</h2>
+            <div class="input-group" style="width: 100%;">
+                <div class="form-outline" style="width: 70%; border: 1px solid gray; border-radius: 2px;">
+                    <input type="search" id="review-search-query" name="review-search-query" class="form-control" />
+                    <label class="form-label" for="review-search-query"></label>
+                </div>
+                <button type="submit" class="btn btn-primary" id="search-review-btn" value="">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="searches-container">
+            </div>
+        </div>
+
+        <div id="review-container">
+            <h2>Reviews</h2>
+
+            @foreach (var review in Model.Reviews)
             {
-                <span class="badge badge-secondary review-tag filter-tag" data-chosen=false>@tag.DisplayTagText</span>
+                <div class="company-review">
+                    <div class="review-stars">
+                        @for (var i = 0; i < review.Rating; i++)
+                        {
+                            <span class="fas fa-star selected-star"></span>
+                        }
+                        @for (var i = review.Rating; i < 10; i++)
+                        {
+                            <span class="fas fa-star"></span>
+                        }
+                    </div>
+
+                    <div class="tags-container">
+                        @foreach (string tag in JsonSerializer.Deserialize<List<string>>(review.SerializedTags))
+                        {
+                            <span class="badge badge-secondary review-tag" data-chosen=false>@tag</span>
+                        }
+                    </div>
+                    <p>@review.ReviewText</p>
+                </div>
             }
         </div>
-        <h2 style="margin-top: 30px;">Search Reviews by Text</h2>
-        <div class="input-group" style="width: 100%;">
-            <div class="form-outline" style="width: 70%; border: 1px solid gray; border-radius: 2px;">
-                <input type="search" id="review-search-query" name="review-search-query" class="form-control" />
-                <label class="form-label" for="review-search-query"></label>
-            </div>
-            <button type="submit" class="btn btn-primary" id="search-review-btn" value="">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
-        <div class="searches-container">
 
-        </div>
     </div>
+</body>
+</html>
 
-    <div id="review-container">
-        <h2>Reviews</h2>
-
-        @foreach (var review in Model.Reviews)
-        {
-            <div class="company-review">
-                <div class="review-stars">
-                    @for(var i=0; i < review.Rating; i++){
-                        <span class="fas fa-star selected-star"></span>
-                    }
-                    @for(var i=review.Rating; i < 10; i++){
-                        <span class="fas fa-star"></span>
-                    }
-                </div>
-
-                <div class="tags-container">
-                    @foreach (string tag in JsonSerializer.Deserialize<List<string>>(review.SerializedTags))
-                    {
-                        <span class="badge badge-secondary review-tag" data-chosen=false>@tag</span>
-                    }
-                </div>
-                <p>@review.ReviewText</p>
-            </div>
-        }
-    </div>
-
-</div>
 
 <script type="text/javascript">
     const activeTagColor = "#a2d729";

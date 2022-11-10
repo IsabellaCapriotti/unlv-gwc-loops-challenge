@@ -1,16 +1,30 @@
 ﻿<div id="home-and-search">
-    <form style="width: 90%" method="post" asp-action="ViewSearchResults" asp-controller="CompanySearchResults">
-        <div class="input-group" style="width: 100%;">
-            <div class="form-outline" style="width: 70%; border: 1px solid gray; border-radius: 2px;">
-                <input type="search" id="company-search-query" name="company-search-query" class="form-control" />
-                <label class="form-label" for="company-search-query">Search for a company</label>
-            </div>
-            <button type="submit" class="btn btn-primary" value="">
-                <i class="fas fa-search"></i>
-            </button>
+    
+    <div class="row" style="text-align:end">
+
+        <div class="col" style="margin-left:10px">
+            <form method="post" asp-action="ViewSearchResults" asp-controller="CompanySearchResults">
+                <div class="input-group" style="width: 100%;">
+                    <input type="search" id="company-search-query" name="company-search-query" class="form-control rounded" placeholder="Search for a company" aria-label="Search for a company" aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-primary" value="">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
         </div>
-    </form>
-    <a id="home-link" href="/">
-        <i class="fas fa-home"></i>
-    </a>
+        
+        <div class="col" style="margin-top:5px">
+            <a id="home-link" href="/" style="padding:8px">
+                <i class="fas fa-home"></i>
+            </a>
+
+            <a href="/profile" style="padding:8px">
+                <i class="fas fa-user"></i>
+            </a>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1" style="width:115px">
+            @Html.Partial("_LoginPartial")
+        </div>               
+    </div>
+    
 </div>
