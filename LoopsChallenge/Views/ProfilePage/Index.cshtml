@@ -1,7 +1,13 @@
-﻿
+﻿@using LoopsChallenge.Data.Entities;
+@using LoopsChallenge.Models;
+
+@model ProfilePageModel;
+
 <div class="main-page-container">
     @await Component.InvokeAsync("SearchBar")
-    <div class="fuck">
-        <h1>Profile page?</h1>
-    </div>
+    <h1>
+        @Model.Username
+    </h1>
+    @Html.Partial("_LoginPartial")
+    
 </div>

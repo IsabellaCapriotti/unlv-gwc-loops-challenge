@@ -8,7 +8,7 @@ public class ProfileDetails
     public int Id { get; set; }
 
     [Required]
-    public string DisplayName { get; set; }
+    public string? DisplayName { get; set; }
    
     public string? Gender { get; set; }
     public string? Race { get; set; }
